@@ -14,30 +14,40 @@
         >
           <i class="fa-solid fa-check"></i>
         </button>
-        <span class="item-name">Get "<b>{{ item.itemName }}</b>", </span>
-        <span *ngIf="item.storeName">from <b>{{ item.storeName }}</b></span>
-        <span *ngIf="!item.storeName">from <b>wherever...</b></span>
+        <p>
+          <span class="item-name"
+            >Get "<b>{{ item.itemName }}</b
+            >",
+          </span>
+          <span *ngIf="item.storeName"
+            >from <b>{{ item.storeName }}</b></span
+          >
+          <span *ngIf="!item.storeName">from <b>wherever...</b></span>
+        </p>
       </li>
     </ul>
 
     <div *ngIf="sortedItems.length === 0">
-        <h2 class="empty-list">Your list is empty!</h2>
+      <h2 class="empty-list">Your list is empty!</h2>
     </div>
 
     <div class="add-list flex-row flex-center flex-g-1 flex-wrap">
       <input
+        #firstInput
         type="text"
         [(ngModel)]="itemToAdd.itemName"
         placeholder="Add Item"
         (keyup.enter)="addItem()"
+        tabindex="1"
       />
       <input
         type="text"
         [(ngModel)]="itemToAdd.storeName"
         placeholder="From {store}"
         (keyup.enter)="addItem()"
+        tabindex="2"
       />
-      <button class="add-item-bttn" (click)="addItem()">
+      <button class="add-item-bttn" (click)="addItem()" tabindex="3">
         <i class="fa-solid fa-plus"></i>
       </button>
     </div>
@@ -59,20 +69,30 @@
         >
           <i class="fa-solid fa-rotate-left"></i>
         </button>
-        <span class="item-name">You got "<b>{{ item.itemName }}</b>" -</span>
-        <span> from <b>{{ item.storeName ? item.storeName : "somewhere!"}}</b></span>
+        <p>
+          <span class="item-name"
+            >You got "<b>{{ item.itemName }}</b
+            >" -</span
+          >
+          <span>
+            from
+            <b>{{ item.storeName ? item.storeName : "somewhere!" }}</b></span
+          >
+        </p>
       </li>
     </ul>
 
     <div *ngIf="completedItems.length === 0">
-        <h2 class="empty-list">You haven't marked anything as done yet!</h2>
+      <h2 class="empty-list">You haven't marked anything as done yet!</h2>
     </div>
 
-    <div *ngIf="completedItems.length > 0" class="w-100 flex-row flex-center mt-2">
-        <button class="clear-done-bttn" (click)="clearCompletedItems()">
-            Clear All Done <i class="fa-solid fa-trash"></i>
-        </button>
+    <div
+      *ngIf="completedItems.length > 0"
+      class="w-100 flex-row flex-center mt-2"
+    >
+      <button class="clear-done-bttn" (click)="clearCompletedItems()">
+        Clear All Done <i class="fa-solid fa-trash"></i>
+      </button>
     </div>
-
   </div>
 </div>

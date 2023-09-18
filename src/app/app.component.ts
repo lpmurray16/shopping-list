@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { Item, RealtimeDatabaseService,  } from './services/realtime-database.service';
 import { Observable } from 'rxjs';
 
@@ -18,6 +18,8 @@ export class AppComponent implements OnInit {
     purchased: false,
     sortOrder: 0,
   };
+
+  @ViewChild('firstInput') firstInput!: ElementRef;
   
   constructor(private realtimeDb: RealtimeDatabaseService) {
     this.items = this.realtimeDb.getItems();
@@ -39,6 +41,7 @@ export class AppComponent implements OnInit {
     
     this.realtimeDb.addItemToDb(this.itemToAdd);
     this.clearItemToAdd();
+    this.firstInput.nativeElement.focus();
   }
 
   clearItemToAdd() {
