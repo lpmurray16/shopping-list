@@ -2,7 +2,7 @@
 export const environment = {
   production: true,
   firebaseConfig: {
-    apiKey: 'AIzaSyAkItdRvbGdO8GLhXFQz70Vx61V51dp06Y',
+    apiKey: '${FIREBASE_API_KEY}',
     authDomain: 'shopping-list-444aa.firebaseapp.com',
     databaseURL: 'https://shopping-list-444aa-default-rtdb.firebaseio.com',
     projectId: 'shopping-list-444aa',
