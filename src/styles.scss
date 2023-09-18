@@ -194,6 +194,9 @@ ul {
     color: var(--primary-color-1);
     border: 2px solid var(--primary-color-3);
   }
+  @media screen and (max-width: 600px) {
+    padding: 0.5rem 2rem;
+  }
 }
 
 .clear-done-bttn {
@@ -245,6 +248,7 @@ ul {
     left: 0;
     width: 100%;
     z-index: 100;
+    flex-direction: column;
   }
 }
 

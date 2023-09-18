@@ -12,7 +12,13 @@ export class ThemeSwitcherComponent {
   isDark = false;
 
   constructor(private renderer: Renderer2, private el: ElementRef) {
-    this.isDark = localStorage.getItem('useDarkTheme') === 'true';
+    if(localStorage.getItem('useDarkTheme') === 'true') {
+      this.isDark = true;
+      this.renderer.setAttribute(this.el.nativeElement.ownerDocument.body, 'data-theme', 'dark');
+    } else {
+      this.isDark = false;
+      this.renderer.removeAttribute(this.el.nativeElement.ownerDocument.body, 'data-theme');
+    }
   }
 
   toggleTheme() {
