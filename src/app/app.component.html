@@ -60,7 +60,7 @@
           <i class="fa-solid fa-rotate-left"></i>
         </button>
         <span class="item-name">You got "<b>{{ item.itemName }}</b>" -</span>
-        <span> from <b>{{ item.storeName }}</b></span>
+        <span> from <b>{{ item.storeName ? item.storeName : "somewhere!"}}</b></span>
       </li>
     </ul>
 
