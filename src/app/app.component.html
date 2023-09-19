@@ -15,14 +15,8 @@
           <i class="fa-solid fa-check"></i>
         </button>
         <p>
-          <span class="item-name"
-            >Get "<b>{{ item.itemName }}</b
-            >",
-          </span>
-          <span *ngIf="item.storeName"
-            >from <b>{{ item.storeName }}</b></span
-          >
-          <span *ngIf="!item.storeName">from <b>wherever...</b></span>
+          <b>{{ item.itemName }}</b><span *ngIf="item.storeName"> ( <b>{{ item.storeName }}</b> ) </span>
+          <span *ngIf="!item.storeName"><b> ( wherever )</b></span>
         </p>
       </li>
     </ul>
@@ -71,8 +65,8 @@
         </button>
         <p>
           <span class="item-name"
-            >You got "<b>{{ item.itemName }}</b
-            >" -</span
+            >DONE: <b>{{ item.itemName }}</b
+            > -</span
           >
           <span>
             from
