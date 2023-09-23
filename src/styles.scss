@@ -108,6 +108,24 @@ h3 {
   font-family: "Mooli", sans-serif;
 }
 
+  select {
+    padding: 0.5rem;
+    outline: none;
+    background-color: var(--primary-color-2);
+    border-bottom: 2px solid var(--primary-color-1);
+    border-right: none;
+    border-left: none;
+    border-top: none;
+    color: var(--primary-color-1);
+    &:focus {
+      border: 2px solid var(--primary-color-3);
+    }
+    @media screen and (max-width: 600px) {
+      font-size: 1.15rem;
+    }
+  }
+
+
 .section {
   padding: 1rem;
   margin: 1rem auto;

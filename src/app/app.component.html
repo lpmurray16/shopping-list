@@ -4,7 +4,19 @@
 </div>
 
 <div class="section">
-  <h2 class="section-header">List <i class="fa-solid fa-list"></i></h2>
+  <div class="section-header flex-row flex-between">
+    <h2>List <i class="fa-solid fa-list"></i></h2>
+    <select [(ngModel)]="filterByStoreSelection" (ngModelChange)="onFilterChange()">
+      <option value="all">Sort By Store</option>
+      <option value="">Wherever</option>
+      <option value="Target">Target</option>
+      <option value="Jewel">Jewel</option>
+      <option value="Walmart">Walmart</option>
+      <option value="Costco">Costco</option>
+      <option value="Aldi">Aldi</option>
+      <option value="Sams Club">Sams Club</option>
+    </select>
+  </div>
   <div class="list-container">
     <ul class="shopping-list" *ngIf="sortedItems.length > 0">
       <li *ngFor="let item of sortedItems" draggable="true" class="list-item">
@@ -49,7 +61,9 @@
 </div>
 
 <div class="section">
-  <h2 class="section-header">Done <i class="fa-solid fa-list-check"></i></h2>
+  <div class="section-header">
+    <h2>Done <i class="fa-solid fa-list-check"></i></h2>
+  </div>
   <div class="list-container">
     <ul class="shopping-list-done" *ngIf="completedItems.length > 0">
       <li
