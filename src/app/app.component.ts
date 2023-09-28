@@ -41,7 +41,6 @@ export class AppComponent implements OnInit {
 
   addItem() {
     this.itemToAdd.sortOrder = this.sortedItems.length;
-
     this.itemToAdd.itemName =
       this.itemToAdd.itemName.charAt(0).toUpperCase() +
       this.itemToAdd.itemName.slice(1);
@@ -52,6 +51,7 @@ export class AppComponent implements OnInit {
     this.realtimeDb.addItemToDb(this.itemToAdd);
     this.clearItemToAdd();
     this.firstInput.nativeElement.focus();
+    this.firstInput.nativeElement.value = '';
   }
 
   clearItemToAdd() {

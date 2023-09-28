@@ -256,15 +256,6 @@ ul {
   }
 }
 
-.theme-toggle {
-  @media screen and (max-width: 600px) {
-    position: fixed;
-    top: 26px;
-    right: 18px;
-    z-index: 100;
-  }
-}
-
 .add-list {
   @media screen and (max-width: 600px) {
     width: 100%;
