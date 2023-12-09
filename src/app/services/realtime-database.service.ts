@@ -52,11 +52,11 @@ export class RealtimeDatabaseService {
     return null;
   }
 
-  unmarkPurchased(itemKey: string) {
+  unmarkPurchased(itemKey: string, length: number) {
     if (itemKey) {
       return this.realtimeDb
         .list<Item>('items')
-        .update(itemKey, { purchased: false });
+        .update(itemKey, { purchased: false, sortOrder: length });
     }
     return null;
   }

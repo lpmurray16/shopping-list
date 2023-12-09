@@ -6,7 +6,10 @@
 <div class="section">
   <div class="section-header flex-row flex-between">
     <h2>List <i class="fa-solid fa-list"></i></h2>
-    <select [(ngModel)]="filterByStoreSelection" (ngModelChange)="onFilterChange()">
+    <select
+      [(ngModel)]="filterByStoreSelection"
+      (ngModelChange)="onFilterChange()"
+    >
       <option value="all">Sort By Store</option>
       <option value="">Wherever</option>
       <option value="Target">Target</option>
@@ -15,6 +18,7 @@
       <option value="Costco">Costco</option>
       <option value="Aldi">Aldi</option>
       <option value="Sams Club">Sams Club</option>
+      <option value="Trader Joes">Trader Joes</option>
     </select>
   </div>
   <div class="list-container">
@@ -27,7 +31,10 @@
           <i class="fa-solid fa-check"></i>
         </button>
         <p>
-          <b>{{ item.itemName }}</b><span *ngIf="item.storeName"> ( <b>{{ item.storeName }}</b> ) </span>
+          <b>{{ item.itemName }}</b
+          ><span *ngIf="item.storeName">
+            ( <b>{{ item.storeName }}</b> )
+          </span>
           <span *ngIf="!item.storeName"><b> ( wherever )</b></span>
         </p>
       </li>
@@ -49,7 +56,7 @@
       <input
         type="text"
         [(ngModel)]="itemToAdd.storeName"
-        placeholder="From {store}"
+        placeholder="Store Name (optional)"
         (keyup.enter)="addItem()"
         tabindex="2"
       />
@@ -79,8 +86,7 @@
         </button>
         <p>
           <span class="item-name"
-            >DONE: <b>{{ item.itemName }}</b
-            > -</span
+            >DONE: <b>{{ item.itemName }}</b> -</span
           >
           <span>
             from
@@ -103,4 +109,18 @@
       </button>
     </div>
   </div>
+</div>
+
+<div class="footer">
+  <div class="warning-message" *ngIf="warningIsLive">
+    <i class="fa-solid fa-exclamation-triangle"></i>
+    <p class="text-center">
+      This store is not on the known store list!<br />
+      (It will still be added).
+    </p>
+  </div>
+  <p>
+    Made with <i class="fa-solid fa-heart"></i> by
+    <a href="https://logan-murray.dev">Logan Murray</a>
+  </p>
 </div>

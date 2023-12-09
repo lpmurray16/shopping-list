@@ -17,6 +17,18 @@ export class AppComponent implements OnInit {
   completedItems: Item[] = [];
   filterByStoreSelection: string = 'all';
 
+  warningIsLive: boolean = false;
+
+  knownStores: string[] = [
+    'Aldi',
+    'Costco',
+    'Sams Club',
+    'Target',
+    'Trader Joes',
+    'Walmart',
+    'Jewel',
+  ];
+
   itemToAdd: Item = {
     itemName: '',
     storeName: '',
@@ -48,10 +60,18 @@ export class AppComponent implements OnInit {
       this.itemToAdd.storeName.charAt(0).toUpperCase() +
       this.itemToAdd.storeName.slice(1);
 
+    this.checkStoreName(this.itemToAdd.storeName);
+
     this.realtimeDb.addItemToDb(this.itemToAdd);
     this.clearItemToAdd();
     this.firstInput.nativeElement.focus();
     this.firstInput.nativeElement.value = '';
+  }
+
+  checkStoreName(storeName: string) {
+    if (!this.knownStores.includes(storeName)) {
+      this.showWarningFor3Seconds();
+    }
   }
 
   clearItemToAdd() {
@@ -63,12 +83,19 @@ export class AppComponent implements OnInit {
     };
   }
 
+  showWarningFor3Seconds() {
+    this.warningIsLive = true;
+    setTimeout(() => {
+      this.warningIsLive = false;
+    }, 3000);
+  }
+
   markAsPurchased(itemKey: string) {
     this.realtimeDb.markPurchased(itemKey);
   }
 
   unmarkAsPurchased(itemKey: string) {
-    this.realtimeDb.unmarkPurchased(itemKey);
+    this.realtimeDb.unmarkPurchased(itemKey, this.sortedItems.length + 1);
   }
 
   clearCompletedItems() {
