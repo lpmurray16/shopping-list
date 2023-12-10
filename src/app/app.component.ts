@@ -27,6 +27,7 @@ export class AppComponent implements OnInit {
     'Trader Joes',
     'Walmart',
     'Jewel',
+    ''
   ];
 
   itemToAdd: Item = {
