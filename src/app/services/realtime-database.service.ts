@@ -47,7 +47,7 @@ export class RealtimeDatabaseService {
     if (itemKey) {
       return this.realtimeDb
         .list<Item>('items')
-        .update(itemKey, { purchased: true });
+        .update(itemKey, { purchased: true, sortOrder: 0 });
     }
     return null;
   }

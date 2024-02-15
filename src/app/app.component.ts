@@ -12,10 +12,13 @@ import { Observable } from 'rxjs';
 })
 export class AppComponent implements OnInit {
   items: Observable<Item[]>;
-  sortedItems: Item[] = [];
-  originalSortedItems: Item[] = [];
-  completedItems: Item[] = [];
+
+  itemsList: Item[] = [];
+  copyOfItemsList: Item[] = [];
   filterByStoreSelection: string = 'all';
+
+  unpurchasedList: Item[] = [];
+  purchasedList: Item[] = [];
 
   warningIsLive: boolean = false;
 
@@ -27,7 +30,7 @@ export class AppComponent implements OnInit {
     'Trader Joes',
     'Walmart',
     'Jewel',
-    ''
+    '',
   ];
 
   itemToAdd: Item = {
@@ -44,16 +47,26 @@ export class AppComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.load();
+  }
+
+  load() {
     this.items.subscribe((items) => {
-      this.sortedItems = items.sort((a, b) => a.sortOrder - b.sortOrder);
-      this.sortedItems = this.sortedItems.filter((item) => !item.purchased);
-      this.originalSortedItems = this.sortedItems;
-      this.completedItems = items.filter((item) => item.purchased);
+      this.itemsList = items;
+
+      this.unpurchasedList = this.itemsList
+        .filter((item) => !item.purchased)
+        .sort((a, b) => a.sortOrder - b.sortOrder);
+      this.purchasedList = this.itemsList
+        .filter((item) => item.purchased)
+        .sort((a, b) => a.sortOrder - b.sortOrder);
+
+      this.copyOfItemsList = this.itemsList;
     });
   }
 
   addItem() {
-    this.itemToAdd.sortOrder = this.sortedItems.length;
+    this.itemToAdd.sortOrder = this.unpurchasedList.length;
     this.itemToAdd.itemName =
       this.itemToAdd.itemName.charAt(0).toUpperCase() +
       this.itemToAdd.itemName.slice(1);
@@ -66,7 +79,6 @@ export class AppComponent implements OnInit {
     this.realtimeDb.addItemToDb(this.itemToAdd);
     this.clearItemToAdd();
     this.firstInput.nativeElement.focus();
-    this.firstInput.nativeElement.value = '';
   }
 
   checkStoreName(storeName: string) {
@@ -96,11 +108,11 @@ export class AppComponent implements OnInit {
   }
 
   unmarkAsPurchased(itemKey: string) {
-    this.realtimeDb.unmarkPurchased(itemKey, this.sortedItems.length + 1);
+    this.realtimeDb.unmarkPurchased(itemKey, this.unpurchasedList.length);
   }
 
   clearCompletedItems() {
-    this.completedItems.forEach((item) => {
+    this.purchasedList.forEach((item) => {
       this.realtimeDb.removeItemByKey(item);
     });
   }
@@ -108,20 +120,24 @@ export class AppComponent implements OnInit {
   onFilterChange() {
     let filterSelection = this.filterByStoreSelection.toLowerCase();
     if (filterSelection === 'all') {
-      this.sortedItems = this.originalSortedItems;
+      this.unpurchasedList = this.copyOfItemsList
+        .filter((x) => !x.purchased)
+        .sort((a, b) => a.sortOrder - b.sortOrder);
       return;
     }
-    this.sortedItems = this.originalSortedItems.sort((a, b) => {
-      if (
-        filterSelection &&
-        a.storeName.toLowerCase().includes(filterSelection)
-      ) {
-        return -1;
-      } else if (b.storeName.toLowerCase().includes(filterSelection)) {
-        return 1;
-      } else {
-        return 0;
-      }
-    });
+    this.unpurchasedList = this.copyOfItemsList
+      .filter((x) => !x.purchased)
+      .sort((a, b) => {
+        if (
+          filterSelection &&
+          a.storeName.toLowerCase().includes(filterSelection)
+        ) {
+          return -1;
+        } else if (b.storeName.toLowerCase().includes(filterSelection)) {
+          return 1;
+        } else {
+          return 0;
+        }
+      });
   }
 }

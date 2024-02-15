@@ -22,8 +22,8 @@
     </select>
   </div>
   <div class="list-container">
-    <ul class="shopping-list" *ngIf="sortedItems.length > 0">
-      <li *ngFor="let item of sortedItems" draggable="true" class="list-item">
+    <ul class="shopping-list" *ngIf="unpurchasedList.length > 0">
+      <li *ngFor="let item of unpurchasedList" draggable="true" class="list-item">
         <button
           class="mark-done-bttn"
           (click)="item.key && markAsPurchased(item.key)"
@@ -40,7 +40,7 @@
       </li>
     </ul>
 
-    <div *ngIf="sortedItems.length === 0">
+    <div *ngIf="unpurchasedList.length === 0">
       <h2 class="empty-list">Your list is empty!</h2>
     </div>
 
@@ -72,9 +72,9 @@
     <h2>Done <i class="fa-solid fa-list-check"></i></h2>
   </div>
   <div class="list-container">
-    <ul class="shopping-list-done" *ngIf="completedItems.length > 0">
+    <ul class="shopping-list-done" *ngIf="purchasedList.length > 0">
       <li
-        *ngFor="let item of completedItems"
+        *ngFor="let item of purchasedList"
         draggable="false"
         class="list-item list-item-done"
       >
@@ -96,12 +96,12 @@
       </li>
     </ul>
 
-    <div *ngIf="completedItems.length === 0">
+    <div *ngIf="purchasedList.length === 0">
       <h2 class="empty-list">You haven't marked anything as done yet!</h2>
     </div>
 
     <div
-      *ngIf="completedItems.length > 0"
+      *ngIf="purchasedList.length > 0"
       class="w-100 flex-row flex-center mt-2"
     >
       <button class="clear-done-bttn" (click)="clearCompletedItems()">
